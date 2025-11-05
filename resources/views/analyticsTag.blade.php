@@ -7,3 +7,5 @@
 
   gtag('config', 'G-7FRF7KPVZF');
 </script>
+<script data-goatcounter="https://ddevin.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
