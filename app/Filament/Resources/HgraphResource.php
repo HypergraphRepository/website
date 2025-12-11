@@ -387,6 +387,22 @@ class HgraphResource extends Resource
                                     redirect()->to($record->url);
                                 })
             ])
+            // add another download action for .zst file if exists
+            ->actions([
+                ViewAction::make(),
+                Tables\Actions\Action::make('download_zst')
+                                ->label(
+                                    fn ($record):string => 'Download .zst ('.(file_exists(storage_path('/app/public/datasets/'.$record->name.'/'.$record->name.'.json.zst')) ? round(filesize(storage_path('/app/public/datasets/'.$record->name.'/'.$record->name.'.json.zst'))/1000000, 2).' MB' : 'N/A').')'
+                                )
+                                ->icon('heroicon-o-arrow-down-tray')
+                                // ->color('')
+                                ->action(function ($record, Tables\Actions\Action $action) {
+                                    $zstPath = storage_path('/app/public/datasets/'.$record->name.'/'.$record->name.'.json.zst');
+                                    if (file_exists($zstPath)) {
+                                        redirect()->to(asset('storage/datasets/'.$record->name.'/'.$record->name.'.json.zst'));
+                                    }
+                                })
+            ])
             ->bulkActions([
                 Tables\Actions\BulkAction::make('viewSelected')
                 ->action(function ($records){

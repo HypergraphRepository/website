@@ -20,9 +20,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping(20)
             ->appendOutputTo(storage_path('logs/updateDB.log'));
         $schedule->exec('python3 ./scripts/motifs.py')
-            ->everyTenMinutes()
+            ->daily()
             ->withoutOverlapping(20)
-            ->sendOutputTo(storage_path('logs/motifs.log'));
+            // ->sendOutputTo(storage_path('logs/motifs.log'));
+            ->appendOutputTo(storage_path('logs/motifs2.log'));
     }
 
     /**
